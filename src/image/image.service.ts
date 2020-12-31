@@ -6,6 +6,7 @@ import { ReceiveInfoAndInsertInImage } from './dto/receive-info-insert-image.dto
 import wrap from 'word-wrap';
 import sizeOf from 'image-size';
 
+import UbuntuMono from '../../assets/fonts/UbuntuMono-B.ttf';
 @Injectable()
 export class ImageService {
   receiveAndEdit(file: ReceiveAndEditImage, info: ReceiveInfoAndInsertInImage) {
@@ -23,24 +24,36 @@ export class ImageService {
 
     const dimensions = sizeOf(path);
 
-    if (dimensions.width < dimensions.height) {
-      const tempValue = dimensions.height;
-    }
-
     gm.subClass({ imageMagick: true });
+
     gm(path)
-      .stroke('black')
-      .resize(500, 500)
-      .out('-blur', '0x3')
+      .resize(1080, 1080, '!')
+      .blur(2, 2)
+      .colorspace('Gray')
+      .font('Ubuntu-Mono-Bold.ttf', 40)
+      //.gravity(textPositionAccordingToImagePortrait)
+      .gravity('Center')
+      .fill('black')
+      .drawText(dimensions.width / 20, dimensions.height / 5, wrappedText)
+      .font('Ubuntu-Mono-Bold.ttf', 40)
       .fill('white')
-      //.extent(500, 500)
-      //.blur(2, 1)
-      .font('OpenSans.ttf', 20)
-      .drawText(dimensions.width / 500, dimensions.height / 7, wrappedText)
-      .gravity('SouthWest')
+      .drawText(dimensions.width / 19.9, dimensions.height / 4.9, wrappedText)
       .write(join(__dirname, '..', '..', 'uploads', filename), (err) => {
         if (err) throw new InternalServerErrorException(err);
       });
+
+    // gm(path)
+    //   .resize(500, 500)
+    //   .background('white')
+    //   .blur(2, 1)
+    //   .border(2, 2)
+    //   .borderColor('#663a24')
+    //   .font('Helvetica.ttf', 18)
+    //   .gravity(textPositionAccordingToImagePortrait)
+    //   .drawText(dimensions.width / 7, dimensions.height / 7, wrappedText)
+    //   .write(join(__dirname, '..', '..', 'uploads', filename), (err) => {
+    //     if (err) throw new InternalServerErrorException(err);
+    //   });
   }
 
   findAll() {
