@@ -5,13 +5,6 @@ import { join } from 'path';
 import { ReceiveInfoAndInsertInImage } from './dto/receive-info-insert-image.dto';
 import wrap from 'word-wrap';
 import sizeOf from 'image-size';
-import {
-  FONT_SANS_32_BLACK,
-  loadFont,
-  measureText,
-  measureTextHeight,
-  read,
-} from 'jimp';
 import { exec } from 'child_process';
 
 import UbuntuMono from '../../assets/fonts/UbuntuMono-B.ttf';
@@ -24,23 +17,24 @@ export class ImageService {
   ) {
     const { path, filename } = file;
     const newPath = join(__dirname, '..', '..', 'uploads', filename);
-    let { text } = info;
+    const { text, author } = info;
 
-    if (text.length > 150)
-      throw new InternalServerErrorException('Text bigger than 150 characters');
+    if (text.length > 300)
+      throw new InternalServerErrorException('Text bigger than 300 characters');
 
     //if(path) image without type in the name crashes
 
-    text = `"${text}"`;
+    //text = `"${text}"`;
 
     const wrappedText = wrap(text.toUpperCase(), {
-      width: 30,
+      width: 45,
       trim: true,
     });
 
     exec(
       //sortear gravity e annotate
-      `convert ${path} -brightness-contrast -20 -font Roboto-Bold -fill "#efefef" -pointsize 40 -blur 2,2 -gravity Center -annotate +0+200 '${wrappedText}' output.png`,
+      //caption:'${author}'
+      `convert ${path} -font Bebas-Regular -brightness-contrast -20 -fill "#efefef" -pointsize 60 -blur 2,2 -gravity Center -annotate +0+300 '${wrappedText}' -size 1080x40 -gravity center -font Courier-Bold -pointsize 30 -background '#BB3300' label:'${author}' -append ${newPath}`, //output.png`,
       (err, stdout, stderr) => {
         if (err || stderr)
           throw new InternalServerErrorException(err || stderr);
