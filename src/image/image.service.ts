@@ -5,13 +5,29 @@ import { join } from 'path';
 import { ReceiveInfoAndInsertInImage } from './dto/receive-info-insert-image.dto';
 import wrap from 'word-wrap';
 import sizeOf from 'image-size';
+import {
+  FONT_SANS_32_BLACK,
+  loadFont,
+  measureText,
+  measureTextHeight,
+  read,
+} from 'jimp';
+import { exec } from 'child_process';
 
 import UbuntuMono from '../../assets/fonts/UbuntuMono-B.ttf';
+import { stderr, stdout } from 'process';
 @Injectable()
 export class ImageService {
-  receiveAndEdit(file: ReceiveAndEditImage, info: ReceiveInfoAndInsertInImage) {
+  async receiveAndEdit(
+    file: ReceiveAndEditImage,
+    info: ReceiveInfoAndInsertInImage,
+  ) {
     const { path, filename } = file;
+    const newPath = join(__dirname, '..', '..', 'uploads', filename);
     let { text } = info;
+
+    if (text.length > 150)
+      throw new InternalServerErrorException('Text bigger than 150 characters');
 
     //if(path) image without type in the name crashes
 
@@ -22,35 +38,67 @@ export class ImageService {
       trim: true,
     });
 
-    const dimensions = sizeOf(path);
+    exec(
+      //sortear gravity e annotate
+      `convert ${path} -brightness-contrast -20 -font Roboto-Bold -fill "#efefef" -pointsize 40 -blur 2,2 -gravity Center -annotate +0+200 '${wrappedText}' output.png`,
+      (err, stdout, stderr) => {
+        if (err || stderr)
+          throw new InternalServerErrorException(err || stderr);
 
-    gm.subClass({ imageMagick: true });
+        console.log(stdout);
+      },
+    );
 
-    gm(path)
-      .resize(1080, 1080, '!')
-      .blur(2, 2)
-      .colorspace('Gray')
-      .font('Ubuntu-Mono-Bold.ttf', 40)
-      //.gravity(textPositionAccordingToImagePortrait)
-      .gravity('Center')
-      .fill('black')
-      .drawText(dimensions.width / 20, dimensions.height / 5, wrappedText)
-      .font('Ubuntu-Mono-Bold.ttf', 40)
-      .fill('white')
-      .drawText(dimensions.width / 19.9, dimensions.height / 4.9, wrappedText)
-      .write(join(__dirname, '..', '..', 'uploads', filename), (err) => {
-        if (err) throw new InternalServerErrorException(err);
-      });
+    //const dimensions = sizeOf(path);
+
+    // const image = await read(path);
+    // image.resize(1080, 1080).quality(60).blur(1).brightness(0.7); //.greyscale(); //.write(newPath);
+
+    // const font28 = await loadFont(
+    //   join(__dirname, '..', '..', 'assets', 'fonts', 'font28.fnt'),
+    // );
+    // const font = await loadFont(FONT_SANS_32_BLACK);
+
+    // const imageWidth = measureText(font, wrappedText);
+    // const imageHeight = measureTextHeight(font, wrappedText, 1080);
+
+    // //image.print(font, 54, 108, wrappedText).write(newPath);
+    // image
+    //   .print(
+    //     font28,
+    //     imageWidth / 20,
+    //     imageHeight / 20,
+    //     text.toUpperCase().trim(),
+    //   )
+    //   .write(newPath);
+
+    //image.print(FONT_SANS_64_BLACK, 540, 540, wrappedText).write(newPath);
+
+    //gm.subClass({ imageMagick: false });
 
     // gm(path)
-    //   .resize(500, 500)
-    //   .background('white')
-    //   .blur(2, 1)
-    //   .border(2, 2)
-    //   .borderColor('#663a24')
-    //   .font('Helvetica.ttf', 18)
-    //   .gravity(textPositionAccordingToImagePortrait)
-    //   .drawText(dimensions.width / 7, dimensions.height / 7, wrappedText)
+    //   //.out('-fontSize', '15')
+    //   .out('-font', 'Ubuntu')
+    //   .out('-colorspace', 'Gray')
+    //   .out('-label', wrappedText)
+    //   .out('-gravity', 'center')
+    //   .write(join(__dirname, '..', '..', 'uploads', filename), (err) => {
+    //     if (err) throw new InternalServerErrorException(err);
+    //   });
+
+    // gm(path)
+    //   .resize(1080, 1080, '!')
+    //   .blur(2, 2)
+    //   .colorspace('Gray')
+    //   .out('-font', 'Open-Sans-Extrabold-Italic')
+    //   .fontSize(40)
+    //   //.font('Ubuntu-Mono-Bold-Italic', 40)
+    //   .gravity('Center')
+    //   .fill('white')
+    //   .drawText(54, 216, wrappedText)
+    //   // .font(('../../assets/fonts/UbuntuMono-B.ttf', 40)
+    //   // .fill('white')
+    //   // .drawText(54.27135678392, 220.40816326531, wrappedText)
     //   .write(join(__dirname, '..', '..', 'uploads', filename), (err) => {
     //     if (err) throw new InternalServerErrorException(err);
     //   });
