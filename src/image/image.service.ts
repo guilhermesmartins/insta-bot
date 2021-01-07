@@ -1,29 +1,43 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { ReceiveAndEditImage } from './dto/receive-edit-image.dto';
-import gm, { Dimensions } from 'gm';
-import { join } from 'path';
-import { ReceiveInfoAndInsertInImage } from './dto/receive-info-insert-image.dto';
 import wrap from 'word-wrap';
-import sizeOf from 'image-size';
-import { downloadFileCurl } from './functions/downloadFileCurl';
+import { Image, ImageSchema } from './image.model';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import fs from 'fs';
+import { arrayBufferToBase64 } from './functions/arrayBufferToBase64';
+
 @Injectable()
 export class ImageService {
-  async receiveAndEdit(
-    file: ReceiveAndEditImage,
-    info: ReceiveInfoAndInsertInImage,
-  ) {
+  constructor(
+    @InjectModel('Image') private readonly imageModel: Model<Image>,
+  ) {}
+  async receiveAndEdit(text: string, author: string) {
     //const { path, filename } = file;
     //const newPath = join(__dirname, '..', '..', 'uploads', filename);
-    const { text, author } = info;
 
     if (text.length > 300)
       throw new InternalServerErrorException('Text bigger than 300 characters');
 
+    const image = await api.get('/recentPic');
+
+    console.log('==============\n' + image.data.pureFile.data);
+    const renderedImage = Buffer.from(image.data.pureFile.data);
+    console.log(renderedImage);
+
+    fs.createWriteStream(`./temp/${Buffer.from(image.data.pureFile.data)}`);
+
+    // const image = await this.imageModel.findOne(
+    //   {},
+    //   {},
+    //   { sort: { created_at: -1 } },
+    // );
+
+    // //console.log(image);
+    // console.log(image.pureFile);
+
+    // fs.writeFileSync(`./${image.filename}`, image.pureFile, {});
+
     //if(path) image without type in the name crashes
-
-    //text = `"${text}"`;
-
-    //downloadFileCurl('https://picsum.photos/1080');
 
     const wrappedText = wrap(text.toUpperCase(), {
       width: 45,

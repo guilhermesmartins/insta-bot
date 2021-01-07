@@ -23,20 +23,8 @@ export class ImageController {
   constructor(private readonly imageService: ImageService) {}
 
   @Post()
-  @UseInterceptors(
-    FileInterceptor('image', {
-      storage: diskStorage({
-        destination: './temp',
-        filename: editFileName,
-      }),
-      //fileFilter: imageFileFilter,
-    }),
-  )
-  async postImage(
-    @UploadedFile() file: ReceiveAndEditImage,
-    @Body() info: ReceiveInfoAndInsertInImage,
-  ) {
-    return this.imageService.receiveAndEdit(file, info);
+  async postImage(@Body() info: ReceiveInfoAndInsertInImage) {
+    return this.imageService.receiveAndEdit(info);
   }
 
   @Get()

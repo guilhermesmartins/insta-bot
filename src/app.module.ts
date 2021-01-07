@@ -1,25 +1,14 @@
 import { Module } from '@nestjs/common';
-import { MulterModule } from '@nestjs/platform-express';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ImageModule } from './image/image.module';
-import { diskStorage } from 'multer';
-import crypto from 'crypto';
-import path from 'path';
+import { MongooseModule } from '@nestjs/mongoose';
 @Module({
   imports: [
     ImageModule,
-    MulterModule.register({
-      dest: '../temp/',
-      storage: diskStorage({
-        filename(request, file, callback) {
-          const fileHash = crypto.randomBytes(10).toString('hex');
-          const fileName = `${fileHash}-${file.originalname}`;
-
-          return callback(null, fileName);
-        },
-      }),
-    }),
+    MongooseModule.forRoot(
+      'mongodb+srv://eduardo:VVbgmineg450@image-db.ki8az.mongodb.net/image?retryWrites=true&w=majority',
+    ),
   ],
   controllers: [AppController],
   providers: [AppService],
