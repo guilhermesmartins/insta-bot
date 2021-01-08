@@ -15,15 +15,13 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { editFileName } from './interceptors/filename';
 import { type } from 'os';
-import { ReceiveAndEditImage } from './dto/receive-edit-image.dto';
-import { ReceiveInfoAndInsertInImage } from './dto/receive-info-insert-image.dto';
 
 @Controller('image')
 export class ImageController {
   constructor(private readonly imageService: ImageService) {}
 
   @Post()
-  async postImage(@Body() info: ReceiveInfoAndInsertInImage) {
+  async postImage(@Body() info: { text: string; author: string }) {
     return this.imageService.receiveAndEdit(info);
   }
 
