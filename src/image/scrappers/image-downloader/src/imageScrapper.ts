@@ -14,7 +14,7 @@ const imageScrapper = async () => {
 
   page = await browser.newPage();
 
-  await page.goto('https://picsum.photos/1080');
+  await page.goto('https://picsum.photos/1080/1040');
 
   await page.waitForSelector('img');
 

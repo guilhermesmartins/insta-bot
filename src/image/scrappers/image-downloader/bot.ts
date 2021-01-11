@@ -1,9 +1,7 @@
-import { exec } from 'child_process';
-
 import imageScrapper from './src/imageScrapper';
 import imageCompressor from './src/imageCompressor';
 
-export const bot = async () => {
+export const imageDownloaderBot = async () => {
   const path = await imageScrapper();
 
   await imageCompressor();

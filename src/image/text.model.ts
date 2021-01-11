@@ -3,16 +3,27 @@ import { Document } from 'mongoose';
 
 export const TextSchema = new mongoose.Schema(
   {
-    file: {
+    text: {
       type: String,
       required: true,
+    },
+    author: {
+      type: String,
+      required: false,
+      default: 'unknow author',
+    },
+    used: {
+      type: Boolean,
+      required: true,
+      default: false,
     },
   },
   {
     timestamps: true,
   },
 );
-
 export interface Text extends Document {
-  file: string;
+  text: string;
+  author: string;
+  used: boolean;
 }
