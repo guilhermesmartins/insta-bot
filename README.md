@@ -5,10 +5,7 @@
   
 ## Installation
 
-To run this work, you will need ImageMagick and GraphicsMagick on your machine, 
-```bash
-$ npm install
-```
+To run this work, you will need <a href="https://imagemagick.org/script/download.php">ImageMagick</a> and <a href="http://www.graphicsmagick.org/download.html">GraphicsMagick</a> on your machine. Although its not required, to build the images I've used the <a href="https://fonts2u.com/roboto-black.font">Roboto-Black</a> and <a href="https://www.dafont.com/bebas-neue.font">Bebas-Neue-Regular</a> fonts. After download Image and Graphics Magick, download/clone this repo and run ```npm install``` to download the dependencies needed for this project. After that, run ```npm start``` to run the application and do a post request on the '/image'.
 
 ## Running the app
 
