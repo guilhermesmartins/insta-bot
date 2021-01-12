@@ -1272,13 +1272,6 @@ acorn@^8.0.4:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.0.4.tgz#7a3ae4191466a6984eee0fe3407a4f3aa9db8354"
   integrity sha512-XNP0PqF1XD19ZlLKvB7cMmnZswW4C/03pRHgirB30uSJTaS3A3V1/P4sS3HPvFmjoriPCJQs+JDSbm4bL1TxGQ==
 
-add-filename-increment@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/add-filename-increment/-/add-filename-increment-1.0.0.tgz#106feea10dcda5d2bfe25a5e83d347382f9dd97d"
-  integrity sha512-pFV8VZX8jxuVMIycKvGZkWF/ihnUubu9lbQVnOnZWp7noVxbKQTNj7zG2y9fXdPcuZ6lAN3Drr517HaivGCjdQ==
-  dependencies:
-    strip-filename-increment "^2.0.1"
-
 agent-base@5:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/agent-base/-/agent-base-5.1.1.tgz#e8fb3f242959db44d63be665db7a8e739537a32c"
@@ -5717,11 +5710,6 @@ strip-eof@^1.0.0:
   resolved "https://registry.yarnpkg.com/strip-eof/-/strip-eof-1.0.0.tgz#bb43ff5598a6eb05d89b59fcd129c983313606bf"
   integrity sha1-u0P/VZim6wXYm1n80SnJgzE2Br8=
 
-strip-filename-increment@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/strip-filename-increment/-/strip-filename-increment-2.0.1.tgz#3feca2ebd529d4cdcad0281a9bbb2660b096fcc6"
-  integrity sha512-+v5xsiTTsdYqkPj7qz1zlngIsjZedhHDi3xp/9bMurV8kXe9DAr732gNVqtt4X8sI3hOqS3nlFfps5gyVcux6w==
-
 strip-final-newline@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/strip-final-newline/-/strip-final-newline-2.0.0.tgz#89b852fb2fcbe936f6f4b3187afb0a12c1ab58ad"
@@ -6389,13 +6377,6 @@ write-file-atomic@^3.0.0:
     is-typedarray "^1.0.0"
     signal-exit "^3.0.2"
     typedarray-to-buffer "^3.1.5"
-
-write@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/write/-/write-2.0.0.tgz#d6320a5f764fbd6ee93022f61273d62fa23dbd04"
-  integrity sha512-yam9TAqN8sAZokECAejo9HpT2j2s39OgK8i8yxadrFBVo+iSWLfnipRVFulfAw1d2dz5vSuGmlMHYRKG4fysOA==
-  dependencies:
-    add-filename-increment "^1.0.0"
 
 ws@^7.2.3:
   version "7.4.1"

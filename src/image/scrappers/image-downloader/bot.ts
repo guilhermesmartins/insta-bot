@@ -6,8 +6,5 @@ export const imageDownloaderBot = async () => {
 
   await imageCompressor();
 
-  // exec('rm  ../../uploads/*.jpg');
-  // exec('rm ../../temp/*.jpg');
-
   return path;
 };

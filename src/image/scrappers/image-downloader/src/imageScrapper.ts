@@ -1,8 +1,6 @@
 import puppeteer from 'puppeteer';
 import fs from 'fs';
 import fetch from 'node-fetch';
-import { join } from 'path';
-import write from 'write';
 
 let browser = null;
 let page = null;

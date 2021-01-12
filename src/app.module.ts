@@ -5,7 +5,6 @@ import { ImageModule } from './image/image.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import config from '../config/config';
-import 'dotenv/config';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -13,7 +12,7 @@ import 'dotenv/config';
       isGlobal: true,
     }),
     ImageModule,
-    MongooseModule.forRoot(),
+    MongooseModule.forRoot(''),
   ],
   controllers: [AppController],
   providers: [AppService],
