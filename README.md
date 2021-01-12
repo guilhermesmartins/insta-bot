@@ -1,33 +1,11 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-  
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
+  <h1 align="center">Insta-Bot</h1>
+  <p align="center">Bot that receives (or not) a phrase, edit an image with the phrase and post it on instagram in portuguese and english</p>
 ## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
+  This project utilizes 4 bots plus ImageMagick to insert a phrase into an image, the author of this phrase and post the image on Instagram. A post request is made to the backend, and the bot will see if there is a unused phrase on the mongodb database (I've made a Telegram Bot to insert images, you can access it <a href="https://github.com/guilhermeSMartins/insta-bot-telegram/">here</a>). If there aren't, the backend will call a bot to scrap an phrase and author from the website pensador.com. After getting the content, the picture bot will get an random image in the dimensions 1050x1040 from lorem picsum and save it on the temp file, with size optimized. Soon after the image bot ends, a translator bot will be called to translate the phrase to portuguese and english and returning the text translated. With the new two texts, the exec function will be called and ImageMagick will build the image with some effects, the texts translated, a label for the author and save it on the uploads folder. So, the instagram bot will be called to post the images on a english and portuguese profiles. To finish, the backend will clean the two folders, uploads and temp.
+  
 ## Installation
 
+To run this work, you will need ImageMagick and GraphicsMagick on your machine, 
 ```bash
 $ npm install
 ```
