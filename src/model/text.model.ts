@@ -22,6 +22,7 @@ export const TextSchema = new mongoose.Schema(
     timestamps: true,
   },
 );
+
 export interface Text extends Document {
   text: string;
   author: string;

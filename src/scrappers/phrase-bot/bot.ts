@@ -1,6 +1,5 @@
 import cheerio from 'cheerio';
 //import request from 'request';
-import request from 'request';
 import axios from 'axios';
 
 export const phraseBot = async (): Promise<{
@@ -9,7 +8,6 @@ export const phraseBot = async (): Promise<{
 }> => {
   // eslint-disable-next-line no-var
   let text: string, author: string;
-  let arr: string[];
 
   const result = await axios.get(
     `https://www.pensador.com/frases_filosofos/${Math.round(
@@ -29,6 +27,8 @@ export const phraseBot = async (): Promise<{
 
   text = text.trim();
   author = author.trim().replace('.', '');
+
+  if (text.length > 250) phraseBot();
 
   return { text, author };
 };

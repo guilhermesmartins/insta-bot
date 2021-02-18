@@ -396,6 +396,7 @@ Temporary Items
 # Local
 .env
 dist
-uploads
-temp
-config
+uploads/*.jpg
+temp/*.jpg
+config/default.json
+.vscode
